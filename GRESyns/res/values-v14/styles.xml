@@ -1,0 +1,14 @@
+<resources>
+
+
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar" >
+		<item name="android:windowTitleSize">10dp</item>
+		<item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+        <item name="android:divider">@color/textBlue</item>
+        <item name="android:dividerHeight">1dp</item>         				    
+	</style>
+	
+    <style name="WindowTitleBackground" >
+        <item name="android:background">@color/titlebackgroundcolor</item>
+    </style>
+</resources>
