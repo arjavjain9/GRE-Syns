@@ -29,7 +29,11 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentLeft="true"
+<<<<<<< HEAD
 	    android:layout_below="@+id/buttons"
+=======
+	    android:layout_below="@+id/bview"
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 	    android:padding="5sp"
 	    android:text="@string/greheading"
 	    android:textColor="@color/textBlue"
@@ -44,7 +48,11 @@
         android:layout_below="@+id/greheading"
         android:padding="5sp"
         android:paddingLeft="15sp"
+<<<<<<< HEAD
         android:textSize="18sp" />
+=======
+        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
        
 	<View
 	    android:id="@+id/div"		    
@@ -65,7 +73,11 @@
 	    android:textColor="@color/textBlue"
 	    android:textSize="14sp"
 	    android:textStyle="italic" />
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 	<Button
 	    android:id="@+id/bview"
 	    android:layout_width="match_parent"
@@ -75,6 +87,7 @@
 	    android:background="@color/dark"
 	    android:text="@string/viewbutton"
 	    android:textColor="@android:color/white" />
+<<<<<<< HEAD
 
 	<LinearLayout
 	    android:id="@+id/buttons"
@@ -106,3 +119,8 @@
 	</LinearLayout>
 
 </RelativeLayout>
+=======
+		  
+</RelativeLayout>
+
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc

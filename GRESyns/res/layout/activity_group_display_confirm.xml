@@ -27,6 +27,7 @@
 	
     </ListView>
 
+<<<<<<< HEAD
      <Button
          android:id="@+id/add_confirm"
          android:layout_width="wrap_content"
@@ -34,6 +35,18 @@
          android:layout_alignParentBottom="true"
          android:layout_alignParentRight="true"
          android:text="@string/add_confirm" />
+=======
+
+     <Button
+        android:id="@+id/add_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+	    android:background="@color/dark"
+	    android:textColor="@android:color/white"
+        android:text="@string/add_confirm" />
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 
     <Button
         android:id="@+id/cancel_confirm"
@@ -41,7 +54,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+<<<<<<< HEAD
         style="@style/cancelBackground"
+=======
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
         android:text="@string/cancel" />
     
 </RelativeLayout>

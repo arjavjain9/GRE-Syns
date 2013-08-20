@@ -5,9 +5,17 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+=======
+import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MenuItem;
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,9 +25,13 @@ import android.widget.ListView;
 
 public class Box extends Activity {
 	List<String> data;
+<<<<<<< HEAD
 	String count;
 	int min;
 	int max;
+=======
+	 
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -35,9 +47,13 @@ public class Box extends Activity {
 		DBManager db = new DBManager(this);
         
     	db.open();
+<<<<<<< HEAD
     	 count=db.getCount(box);
     	 min=Integer.parseInt(count.split("@")[0]);
     	 max=Integer.parseInt(count.split("@")[1]);
+=======
+
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
     	data=db.read(box);
 		listview.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, data));
         listview.setFastScrollEnabled(true);
@@ -59,8 +75,11 @@ public class Box extends Activity {
 				
 				Intent ourIntent=new Intent("org.aakashlabs.gresyns.DISPLAYACTIVITY");
 				ourIntent.putExtra("ID",item);
+<<<<<<< HEAD
 				ourIntent.putExtra("minwid",min);
 				ourIntent.putExtra("maxwid",max);
+=======
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 				startActivity(ourIntent);
 				
 			}

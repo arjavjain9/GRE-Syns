@@ -444,7 +444,11 @@ public class DBManager extends Service {
 			db.execSQL(query);
 			
 			db.execSQL("DROP VIEW v1;");
+<<<<<<< HEAD
 			db.execSQL("CREATE  VIEW v1 AS SELECT sid, isDefault, COUNT(sid) as count FROM lists GROUP BY sid;");
+=======
+			db.execSQL("CREATE  VIEW v1 AS SELECT sid, COUNT(sid) as count FROM lists GROUP BY sid;");
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 			db.execSQL("DROP VIEW v2;");
 			db.execSQL("CREATE  VIEW v2 AS SELECT sid,meaning FROM gloss where sid IN (SELECT sid FROM v1 WHERE count>1);");
 
@@ -520,6 +524,7 @@ public List<ListItem> searchGroup(String text)
 		c.close();
 		return l;
 	}	
+<<<<<<< HEAD
 public String getID(String word1)
 {Log.d("HELLLO","GETTING ID");
 	Cursor c=db.rawQuery("select wid from wordindex where word='"+word1+"'",null);
@@ -562,5 +567,7 @@ public String getCount(String box)
 		cursor.close();
 	return result;
 }
+=======
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 
 }

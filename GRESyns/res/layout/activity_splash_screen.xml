@@ -2,8 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:background="@drawable/background"
     android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+=======
+    android:background="@drawable/background" >
+>>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 
     <ImageView
         android:id="@+id/logo_splash"
