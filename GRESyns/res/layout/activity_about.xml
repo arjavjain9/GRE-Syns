@@ -9,19 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".About" >
 
-<<<<<<< HEAD
-=======
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"        
-        android:text="@string/version"
-        android:textColor="@android:color/white" />
-
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -47,11 +34,7 @@
         android:layout_marginTop="18dp"
         android:text="@string/deep"
         android:textColor="@android:color/white" />
-<<<<<<< HEAD
  
-=======
-    
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
     <TextView
         android:id="@+id/id3"
         android:layout_width="wrap_content"
@@ -59,10 +42,7 @@
         android:layout_marginTop="18dp"
         android:text="@string/dharmendra"
         android:textColor="@android:color/white" />
-<<<<<<< HEAD
         
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
     </LinearLayout>
 
     <ImageView
@@ -71,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-<<<<<<< HEAD
         android:contentDescription="@string/app_name"
         android:src="@drawable/logo" />
 
@@ -84,10 +63,4 @@
         android:text="@string/version"
         android:textColor="@android:color/white" />
 
-=======
-        android:layout_marginTop="124dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/logo" />
-
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 </RelativeLayout>

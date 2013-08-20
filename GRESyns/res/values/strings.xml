@@ -39,20 +39,13 @@
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_about">About</string>
-<<<<<<< HEAD
     <string name="version">Beta</string>
-=======
-    <string name="version">v1.0</string>
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
     <string name="contact">jitendra.jain@live.com\\ndeepshah@live.com</string>
     <string name="jitendra">jitendra.jain@live.com</string>
     <string name="deep">deepshah@live.com</string>
     <string name="dharmendra">dharmendra.hingu@gmail.com</string>
     <string name="about">About</string>
-<<<<<<< HEAD
     <string name="next">Next</string>
     <string name="prev">Prev</string>
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 
 </resources>

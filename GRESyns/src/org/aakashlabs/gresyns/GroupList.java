@@ -11,10 +11,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-<<<<<<< HEAD
-=======
-import android.view.Menu;
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;

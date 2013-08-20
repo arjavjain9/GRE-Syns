@@ -7,10 +7,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Log;
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,22 +16,17 @@ import android.widget.TextView;
 
 public class DisplayActivity extends Activity {
 public static String word;
-<<<<<<< HEAD
 public int id;
 TextView wordview;
 TextView greview;
 int max;
 int min;
-=======
-
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		Intent intent=getIntent();
 		word=intent.getStringExtra("ID");
-<<<<<<< HEAD
         max=intent.getIntExtra("maxwid",-1);
         min=intent.getIntExtra("minwid",-1);
 		setContentView(R.layout.activity_display);
@@ -49,41 +41,6 @@ int min;
 		Button b=(Button)findViewById(R.id.bview);
 		Button b1=(Button)findViewById(R.id.next1);
 		Button b2=(Button)findViewById(R.id.prev1);
-=======
-        setTitle(word);
-		setContentView(R.layout.activity_display);
-
-		TextView wordview=(TextView)findViewById(R.id.word);
-		TextView greview=(TextView)findViewById(R.id.gremeaning);
-		
-		wordview.setText(word);
-
-        final ListView listview = (ListView) findViewById(R.id.meanings);
-
-		DBManager db=new DBManager(this);
-		db.open();
-		
-		String gremeaning = db.getGREMeaning(word);
-		greview.setText(gremeaning);
-		
-        List<String[]> data = db.getWord(word);
-        db.close();
-        
-        List<String> meaning = new ArrayList<String>();
-        Iterator<String[]> itr = data.iterator();
-		String[] item;
-
-        while(itr.hasNext())
-        {
-        	item=itr.next();
-    		item[1]=item[1].replace("; "+'\"',";\n"+'\"');
-        	meaning.add(item[0]+"  "+item[1]);
-        	
-        }
-
-		listview.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, meaning));
-		Button b=(Button)findViewById(R.id.bview);
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 		b.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -94,7 +51,6 @@ int min;
 				startActivity(i);
 			}
 		});
-<<<<<<< HEAD
 b1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -155,10 +111,4 @@ public void setMeaning(String word)
 	listview.setAdapter(new ArrayAdapter<String>(DisplayActivity.this,android.R.layout.simple_list_item_1, meaning));
 
 }
-=======
-
-	}
-
-
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 }

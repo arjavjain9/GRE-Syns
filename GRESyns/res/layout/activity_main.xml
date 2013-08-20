@@ -29,10 +29,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:background="@color/light"
-<<<<<<< HEAD
 	        android:textColor="@android:color/black"
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 	        android:text="@string/grouplist" />
 	    
     </LinearLayout>

@@ -20,10 +20,7 @@ import android.widget.SimpleAdapter;
 public class ViewWordList extends Activity {
 	List<ListItem> list=new ArrayList<ListItem>();
 	String data=null;
-<<<<<<< HEAD
 	DBManager db;
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,11 +29,7 @@ public class ViewWordList extends Activity {
 
 		String[] from = new String[] { "title", "description" };
 	    int[] to = new int[] { R.id.title, R.id.description };
-<<<<<<< HEAD
 		db=new DBManager(ViewWordList.this);
-=======
-		DBManager db=new DBManager(ViewWordList.this);
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 		db.open();
 		
 		list=db.getList(DisplayActivity.word);
@@ -74,13 +67,9 @@ public class ViewWordList extends Activity {
 					
 					Intent ourIntent=new Intent("org.aakashlabs.gresyns.GROUPDISPLAY");
 					ourIntent.putExtra("sid",li.getSID());
-<<<<<<< HEAD
 					db.open();
 					ourIntent.putExtra("gloss",db.getGloss(li.getSID()));
 					db.close();
-=======
-					ourIntent.putExtra("gloss",data);
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 					startActivity(ourIntent);
 					
 				}

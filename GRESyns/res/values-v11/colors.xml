@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
        <color name="titlebackgroundcolor">#2C77CC</color>
-<<<<<<< HEAD
        <color name="textBlue">#0099CC</color>
        <color name="divider">#cc0000</color>
        <color name="dark">#0099CC</color>
        <color name="light">#CCCCCC</color>
-=======
-       <color name="textBlue">#0966E4</color>
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 </resources>

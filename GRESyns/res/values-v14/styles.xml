@@ -1,27 +1,18 @@
-<<<<<<< HEAD
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-=======
-<resources>
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 
 
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar" >
 		<item name="android:windowTitleSize">10dp</item>
 		<item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
         <item name="android:divider">@color/textBlue</item>
-<<<<<<< HEAD
         <item name="android:dividerHeight">1dp</item>  
         <item name="android:buttonStyle">@style/buttonBackground</item>
         <item name="android:isScrollContainer">true</item>        				      				    
-=======
-        <item name="android:dividerHeight">1dp</item>         				    
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 	</style>
 	
     <style name="WindowTitleBackground" >
         <item name="android:background">@color/titlebackgroundcolor</item>
     </style>
-<<<<<<< HEAD
     
         <style name="buttonBackground" >
         <item name="android:background">@color/dark</item>
@@ -36,6 +27,4 @@
         <item name="android:gravity">center_horizontal|center_vertical</item>        
         <item name="android:padding">10sp</item>
     </style>
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
 </resources>

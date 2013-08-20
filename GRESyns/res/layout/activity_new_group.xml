@@ -36,11 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-<<<<<<< HEAD
-=======
-        android:background="@color/dark"
-		android:textColor="@android:color/white"
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
         android:text="@string/create" />
 
     <Button
@@ -49,10 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-<<<<<<< HEAD
         style="@style/cancelBackground"
-=======
->>>>>>> 48c7dea1fd7e43b7ab59ed108662ac9e43222edc
         android:text="@string/cancel" />
 
     <Spinner
