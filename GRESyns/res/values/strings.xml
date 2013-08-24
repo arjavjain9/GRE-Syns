@@ -47,5 +47,6 @@
     <string name="about">About</string>
     <string name="next">Next</string>
     <string name="prev">Prev</string>
+    <string name="fav">Favourite</string>
 
 </resources>

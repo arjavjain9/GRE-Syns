@@ -15,6 +15,7 @@ import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 
 
+
 public class Main {
 
 	public static void main(String args[]) throws IOException
@@ -84,7 +85,7 @@ public class Main {
 				if(iword!=null)
 				{
 					c++;
-					query_default = "INSERT INTO wordindex VALUES("+c+",'"+word[0]+"', '"+word[2].replace("'","''")+"');";
+					query_default = "INSERT INTO wordindex VALUES("+c+",'"+word[0]+"', '"+word[2].replace("'","''")+"', 0);";
 					bw_default.write(query_default);
 					bw_default.newLine();
 
@@ -115,7 +116,7 @@ public class Main {
 				{
 					c++;
 					sidGRE++;
-					query_default = "INSERT INTO wordindex VALUES("+c+",'"+word[0]+"', '"+word[2].replace("'","''")+"');";
+					query_default = "INSERT INTO wordindex VALUES("+c+",'"+word[0]+"', '"+word[2].replace("'","''")+"', 0);";
 					bw_default.write(query_default);
 					bw_default.newLine();
 

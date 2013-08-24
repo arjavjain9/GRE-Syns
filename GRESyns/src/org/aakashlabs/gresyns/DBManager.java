@@ -16,7 +16,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.IBinder;
-import android.util.Log;
 
 public class DBManager extends Service {
 
@@ -45,7 +44,7 @@ public class DBManager extends Service {
 	    private static final String DATABASE_NAME = "wndict";
 	    private static final int DATABASE_VERSION = 1;
 
-	    private static final String DATABASE_CREATE1 ="CREATE TABLE IF NOT EXISTS wordindex (wid INTEGER(4), word VARCHAR(256), gremeaning VARCHAR(1024));";
+	    private static final String DATABASE_CREATE1 ="CREATE TABLE IF NOT EXISTS wordindex (wid INTEGER(4), word VARCHAR(256), gremeaning VARCHAR(1024), isFav TINYINT(1));";
 	    private static final String DATABASE_CREATE2 ="CREATE TABLE IF NOT EXISTS lists (wid INTEGER(4), sid INTEGER(8), isDefault TINYINT(1));";
 	    private static final String DATABASE_CREATE3 ="CREATE TABLE IF NOT EXISTS gloss (sid INTEGER(8), meaning VARCHAR(1024), pos INTEGER(1));";
 	    private static final String DATABASE_CREATE4 ="CREATE  VIEW v1 AS SELECT sid, COUNT(sid) as count FROM lists GROUP BY sid;";
@@ -60,8 +59,6 @@ public class DBManager extends Service {
 		@Override
 		public void onCreate(SQLiteDatabase db) 
 		{
-			System.out.println("start");
-			//Toast.makeText(context, "Initializing database", Toast.LENGTH_LONG).show();
 
 			db.execSQL(DATABASE_CREATE1);
 			db.execSQL(DATABASE_CREATE2);
@@ -80,7 +77,6 @@ public class DBManager extends Service {
 				while ((sCurrentLine = br.readLine()) != null) {
 					db.execSQL(sCurrentLine);
 				}
-				System.out.println("wordindex...");
 
 			}
 			
@@ -113,7 +109,6 @@ public class DBManager extends Service {
 				while ((sCurrentLine = br.readLine()) != null) {
 					db.execSQL(sCurrentLine);
 				}
-				System.out.println("lists...");			
 			}
 			
 			catch
@@ -144,7 +139,6 @@ public class DBManager extends Service {
 				while ((sCurrentLine = br.readLine()) != null) {
 					db.execSQL(sCurrentLine);
 				}
-				System.out.println("gloss...");
 			}
 			
 			catch
@@ -168,7 +162,6 @@ public class DBManager extends Service {
 			db.execSQL(DATABASE_CREATE4);
 			db.execSQL(DATABASE_CREATE5);
 
-			//Toast.makeText(context, "Database initiliazation completed", Toast.LENGTH_LONG).show();
 		
 		}
 			 
@@ -200,9 +193,8 @@ public class DBManager extends Service {
         List<String> wordList = new ArrayList<String>();
         String query;
         Cursor cursor=null;
-    	System.out.println("read");
     	if(box.equals("HF"))
-    	{	Log.d("HF","inside HF");
+    	{	
         	query = "SELECT distinct word FROM wordindex WHERE wid<335";
     	}
     	else
@@ -215,14 +207,10 @@ public class DBManager extends Service {
             do {
                 String word;
                 word=cursor.getString(cursor.getColumnIndexOrThrow("word"));
-                // Adding word to list
-                //	Toast.makeText(getApplicationContext(), word, Toast.LENGTH_LONG).show();
                 wordList.add(word);
             } while (cursor.moveToNext());
         }
         
-		//System.out.println(cursor.getString(cursor.getColumnIndexOrThrow("word")));
-		//Toast.makeText(getApplicationContext(), cursor.getString(cursor.getColumnIndexOrThrow("word")), Toast.LENGTH_LONG).show();
 		cursor.close();
 		return wordList;
 	}
@@ -253,7 +241,6 @@ public class DBManager extends Service {
                 		else if(c2.getInt(ipos)==2)
                 			pos="(adj)";
         				String mean[] = {pos,c2.getString(imean)};
-        		    	System.out.println(pos+c2.getString(imean));
 
                 		meanings.add(mean);
                     } while (c2.moveToNext());
@@ -279,8 +266,6 @@ public class DBManager extends Service {
 	}
 
 	public List<ListItem> getList(String word) {
-		// TODO Auto-generated method stub
-		Log.d("INSIDE","getLIST");
 		List<ListItem> l=new ArrayList<ListItem>();
 		int groupcount;
 		Cursor c=db.rawQuery("SELECT * FROM lists where wid in(SELECT wid from wordindex where word='"+word+"')",null);
@@ -290,13 +275,12 @@ public class DBManager extends Service {
 			int index=s.getColumnIndexOrThrow("wid");
 			groupcount=s.getCount();	
 			if(groupcount>1){
-				Log.d("INSIDE","GROUPCOUNT>1");
 				ListItem li=new ListItem();
 				li.setSID(c.getString(imean));
 				for(s.moveToFirst();!s.isAfterLast();s.moveToNext())
-				{	Log.d("WORDS",s.getString(index));
+				{	
 					li.addWID(s.getString(index));	
-					Log.d("WORDS","ADDED");
+					
 				}
 			l.add(li);
 			}
@@ -308,7 +292,6 @@ public class DBManager extends Service {
 		List<ListItem> l=new ArrayList<ListItem>();
 
 		Cursor c=db.rawQuery("SELECT sid,meaning FROM v2",null);
-		System.out.println(c.getCount());
 		for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
 		{
 			ListItem li=new ListItem();
@@ -319,7 +302,6 @@ public class DBManager extends Service {
 		
 		/*
 		Cursor c=db.rawQuery("SELECT sid FROM  `v` WHERE  `count` >1",null);
-		System.out.println(c.getCount());
 		int imean=c.getColumnIndex("sid");
 		for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
 		{
@@ -331,7 +313,6 @@ public class DBManager extends Service {
 		l.add(li);
 		}
 		*/
-		System.out.println("dasd");
 	return l;
 	}
 	
@@ -452,7 +433,6 @@ public class DBManager extends Service {
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
 			result="Could not create group.";
 		}
 		
@@ -465,9 +445,8 @@ public class DBManager extends Service {
         List<String> wordList = new ArrayList<String>();
         String query;
         Cursor cursor=null;
-    	System.out.println("search");
     	if(box.equals("HF"))
-    	{	Log.d("HF","inside HF");
+    	{	
         	query = "SELECT distinct word FROM wordindex WHERE wid<335 and word LIKE '"+text+"%'";
     	}
     	else
@@ -486,8 +465,6 @@ public class DBManager extends Service {
             } while (cursor.moveToNext());
         }
         
-		//System.out.println(cursor.getString(cursor.getColumnIndexOrThrow("word")));
-		//Toast.makeText(getApplicationContext(), cursor.getString(cursor.getColumnIndexOrThrow("word")), Toast.LENGTH_LONG).show();
 		cursor.close();
 		return wordList;
 	}	
@@ -497,7 +474,6 @@ public List<ListItem> searchGroup(String text)
         //List<String> wordList = new ArrayList<String>();
         String query;
         Cursor c=null;
-    	System.out.println("search");
     	query = "SELECT * FROM wordindex WHERE word LIKE'"+text+"%'";   		
     	
 		c = db.rawQuery(query, null);
@@ -515,13 +491,11 @@ public List<ListItem> searchGroup(String text)
 			}
 
         }
-		//System.out.println(cursor.getString(cursor.getColumnIndexOrThrow("word")));
-		//Toast.makeText(getApplicationContext(), cursor.getString(cursor.getColumnIndexOrThrow("word")), Toast.LENGTH_LONG).show();
 		c.close();
 		return l;
 	}	
 public String getID(String word1)
-{Log.d("HELLLO","GETTING ID");
+{
 	Cursor c=db.rawQuery("select wid from wordindex where word='"+word1+"'",null);
 	int i=c.getColumnIndex("wid");
 	if(c.moveToFirst())
@@ -530,6 +504,64 @@ public String getID(String word1)
 	}
 	return "null";
 }
+
+public List<String> getFavList()
+{
+	
+    List<String> wordList = new ArrayList<String>();
+    String query;
+    Cursor cursor=null;
+    query = "SELECT distinct word FROM wordindex WHERE isFav=1";
+	cursor = db.rawQuery(query, null);
+
+    if (cursor.moveToFirst()) {
+        do {
+            String word;
+            word=cursor.getString(cursor.getColumnIndexOrThrow("word"));
+            wordList.add(word);
+        } while (cursor.moveToNext());
+    }
+    
+	cursor.close();
+	return wordList;
+}
+
+public Boolean isFav(String word)
+{
+	Cursor c=db.rawQuery("SELECT isFav FROM wordindex WHERe word='"+word+"'",null);
+	int i=c.getColumnIndex("isFav");
+	if(c.moveToFirst())
+	{
+		if(c.getString(i).equals("1"))
+		{
+			return true;
+		}
+		
+		else
+		{
+			return false;
+		}
+	}
+	return false;
+}
+
+public void toggleFav(String word, Boolean isFav)
+{
+	String fav;
+	if(isFav)
+	{
+		fav="1";
+	}
+	
+	else
+	{
+		fav="0";
+	}
+	db.execSQL("UPDATE wordindex SET isFav="+fav+" WHERE word='"+word+"'");
+
+
+}
+
 public String getCount(String box)
 {
 	
@@ -540,7 +572,6 @@ public String getCount(String box)
     Cursor cursor=null;
     Cursor cursor1=null;
 
-    System.out.println("read");
 	if(box.equals("HF"))
 	{	
     	return "1@334";

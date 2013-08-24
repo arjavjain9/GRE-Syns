@@ -2,18 +2,12 @@
 
 
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar" >
-		<item name="android:windowTitleSize">10dp</item>
-		<item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
-        <item name="android:divider">@color/textBlue</item>
+        <item name="android:windowBackground">@android:color/white</item>
+		<item name="android:divider">@color/textBlue</item>
         <item name="android:dividerHeight">1dp</item>  
         <item name="android:buttonStyle">@style/buttonBackground</item>
-        <item name="android:isScrollContainer">true</item>        				      				    
 	</style>
 	
-    <style name="WindowTitleBackground" >
-        <item name="android:background">@color/titlebackgroundcolor</item>
-    </style>
-    
         <style name="buttonBackground" >
         <item name="android:background">@color/dark</item>
         <item name="android:textColor">@android:color/white</item>        

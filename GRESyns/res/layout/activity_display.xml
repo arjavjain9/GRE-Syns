@@ -82,27 +82,40 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentLeft="true"
 	    android:layout_below="@+id/bview"
-	    android:layout_marginTop="16dp"
+	    android:padding="5sp"
 	    android:orientation="horizontal" >
 
-	   
-
-	    <Button
+	    <ImageButton
 	        android:id="@+id/prev1"
-	        android:layout_width="match_parent"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
 	        android:layout_weight="1"
-	        android:background="@color/dark"
-	        android:text="@string/prev"
-	        android:textColor="@android:color/white" />
-	 <Button
-	        android:id="@+id/next1"
-	        android:layout_width="match_parent"
+	        android:background="@android:color/white"
+	        android:contentDescription="@string/prev"
+	        android:src="@drawable/ic_action_previous" />
+
+	    <ImageButton
+	        android:id="@+id/fav"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
 	        android:layout_weight="1"
-	        android:background="@color/dark"
-	        android:text="@string/next"
-	        android:textColor="@android:color/white" />
+	        android:background="@android:color/white"
+	        android:contentDescription="@string/fav"
+	        android:src="@drawable/ic_star" />
+
+		<ImageButton
+		    android:id="@+id/next1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:layout_weight="1"
+		    android:background="@android:color/white"
+		    android:contentDescription="@string/next"
+		    android:src="@drawable/ic_action_next" />
+
 	</LinearLayout>
+
 
 </RelativeLayout>

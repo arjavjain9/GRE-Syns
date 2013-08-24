@@ -27,15 +27,19 @@ public class MainActivity extends Activity {
 	private final String boxlist[] = {"HF","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 	public static final String[] from = new String[] { "title" };
     public static final int[] to = new int[] { R.id.title };
-	private Intent boxlistIntent;
+	private Intent listIntent;
     ListView listview;
 	public static List<ListItem> list=new ArrayList<ListItem>();
 	public static List<ListItem> savlist=new ArrayList<ListItem>();
+	static List<String> data;
 	static List<HashMap<String, Object>> fillMaps;
     Button boxListButton;
     Button groupListButton;
+    Button favButton;
     View progressbar;
     private Boolean isBoxList = true;
+    private Boolean isGroupList = false;
+    private Boolean isFavList = false;
     private Boolean isLoaded = false;
     private DBManager db;
     private static ProgressDialog progDailog;
@@ -54,6 +58,7 @@ public class MainActivity extends Activity {
 		
 		boxListButton = (Button) findViewById(R.id.boxlistButton);
 		groupListButton = (Button) findViewById(R.id.grouplistButton);
+		favButton = (Button) findViewById(R.id.favButton);
 		listview = (ListView) findViewById(R.id.combined_list);
 		listview.setFastScrollEnabled(true);
 		
@@ -69,23 +74,75 @@ public class MainActivity extends Activity {
 		    		boxListButton.setTextColor(Color.BLACK);
 		    		groupListButton.setTextColor(Color.WHITE);
 		    		toGroup();
+		    		isGroupList=true;
+		    		isBoxList=false;
+		    	}
+		    	
+		    	else if(isFavList)
+		    	{
+		    		favButton.setBackgroundColor(getResources().getColor(R.color.light));
+		    		groupListButton.setBackgroundColor(getResources().getColor(R.color.dark));
+		    		favButton.setTextColor(Color.BLACK);
+		    		groupListButton.setTextColor(Color.WHITE);
+		    		toGroup();
+		    		isGroupList=true;
+		    		isFavList=false;
 		    	}
 		    }
 		});
 
 		boxListButton.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
-		    	if(!isBoxList)
+		    	if(isGroupList)
 		    	{
 		    		groupListButton.setBackgroundColor(getResources().getColor(R.color.light));
 		    		boxListButton.setBackgroundColor(getResources().getColor(R.color.dark));
-		    		boxListButton.setTextColor(Color.WHITE);
 		    		groupListButton.setTextColor(Color.BLACK);
+		    		boxListButton.setTextColor(Color.WHITE);
 		    		toBox();
+		    		isBoxList=true;
+		    		isGroupList=false;
+		    	}
+		    	
+		    	else if(isFavList)
+		    	{
+		    		favButton.setBackgroundColor(getResources().getColor(R.color.light));
+		    		boxListButton.setBackgroundColor(getResources().getColor(R.color.dark));
+		    		favButton.setTextColor(Color.BLACK);
+		    		boxListButton.setTextColor(Color.WHITE);
+		    		toBox();
+		    		isBoxList=true;
+		    		isFavList=false;
 		    	}
 		    }
 		});
 
+		favButton.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+		    	if(isGroupList)
+		    	{
+		    		groupListButton.setBackgroundColor(getResources().getColor(R.color.light));
+		    		favButton.setBackgroundColor(getResources().getColor(R.color.dark));
+		    		groupListButton.setTextColor(Color.BLACK);
+		    		favButton.setTextColor(Color.WHITE);
+		    		toFav();
+		    		isFavList=true;
+		    		isGroupList=false;
+		    	}
+		    	
+		    	else if(isBoxList)
+		    	{
+		    		boxListButton.setBackgroundColor(getResources().getColor(R.color.light));
+		    		favButton.setBackgroundColor(getResources().getColor(R.color.dark));
+		    		boxListButton.setTextColor(Color.BLACK);
+		    		favButton.setTextColor(Color.WHITE);
+		    		toFav();
+		    		isFavList=true;
+		    		isBoxList=false;
+		    	}
+		    }
+		});
+		
 		
 		progressHandler = new Handler() 
 		 {
@@ -132,19 +189,9 @@ public class MainActivity extends Activity {
     
 	private void toBox()
 	{
-		listview.setOnItemClickListener(new OnItemClickListener() {
-	  @Override
-	  public void onItemClick(AdapterView<?> parent, View view,
-	    int position, long id) {
-			boxlistIntent=new Intent(getApplicationContext(), Box.class);
-			boxlistIntent.putExtra("box",boxlist[position]);
-			startActivity(boxlistIntent);
-		  }
-		}); 
 
 		try{		
 			listview.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, boxlist));
-			isBoxList=true;
 			}
 		
 		catch(Exception e)
@@ -153,6 +200,16 @@ public class MainActivity extends Activity {
 			System.out.println(e);
 			Toast.makeText(getApplicationContext(), "Error: "+e.toString(), Toast.LENGTH_LONG).show();				
 		}
+		
+		listview.setOnItemClickListener(new OnItemClickListener() {
+			  @Override
+			  public void onItemClick(AdapterView<?> parent, View view,
+			    int position, long id) {
+					listIntent=new Intent(getApplicationContext(), Box.class);
+					listIntent.putExtra("box",boxlist[position]);
+					startActivity(listIntent);
+				  }
+				}); 
 	}
 				
 	private void toGroup()
@@ -176,12 +233,8 @@ public class MainActivity extends Activity {
 			}
 			SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.row, from, to);
 		    listview.setAdapter(adapter);
-		}
-		
-		
-	    
-		isBoxList=false;
-	
+		}				    
+
 	    listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -192,10 +245,10 @@ public class MainActivity extends Activity {
 				
 				try{
 					
-					Intent ourIntent=new Intent("org.aakashlabs.gresyns.GROUPDISPLAY");
-					ourIntent.putExtra("sid",li.getSID());
-					ourIntent.putExtra("gloss",li.getGloss());
-					startActivity(ourIntent);
+					listIntent=new Intent(getApplicationContext(), GroupDisplay.class);
+					listIntent.putExtra("sid",li.getSID());
+					listIntent.putExtra("gloss",li.getGloss());
+					startActivity(listIntent);
 					
 				}
 				catch(Exception e)
@@ -206,7 +259,26 @@ public class MainActivity extends Activity {
 				
 	}
 		
-	
+	private void toFav()
+	{
+		db.open();
+		data=db.getFavList();
+		listview.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, data));
+		db.close();
+
+		listview.setOnItemClickListener(new OnItemClickListener() {
+			  @Override
+			  public void onItemClick(AdapterView<?> parent, View view,
+			    int position, long id) {
+				  
+					String item=parent.getItemAtPosition(position).toString();
+					listIntent=new Intent(getApplicationContext(), DisplayActivity.class);
+					listIntent.putExtra("ID",item);
+					listIntent.putExtra("caller","MainActivity");
+					startActivity(listIntent);
+				  }
+				}); 
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

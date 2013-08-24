@@ -7,78 +7,122 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class DisplayActivity extends Activity {
-public static String word;
-public int id;
-TextView wordview;
-TextView greview;
-int max;
-int min;
+	public static String word;
+	public int id;
+	TextView wordview;
+	TextView greview;
+	ImageButton fav;
+	Boolean isFav=false;
+	int max;
+	int min;
+	String data[]={};
+	int i,l;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		Intent intent=getIntent();
 		word=intent.getStringExtra("ID");
-        max=intent.getIntExtra("maxwid",-1);
+        String caller=intent.getStringExtra("caller");
         min=intent.getIntExtra("minwid",-1);
 		setContentView(R.layout.activity_display);
 
-		 wordview=(TextView)findViewById(R.id.word);
+		wordview=(TextView)findViewById(R.id.word);
 		greview=(TextView)findViewById(R.id.gremeaning);
 		final DBManager db=new DBManager(this);
 		db.open();
 		id=Integer.parseInt(db.getID(word));
 		db.close();
-		setMeaning(word);
+		
+		if(caller.equals("Box"))
+		{
+			data=Box.data.toArray(data);
+			i=Box.data.indexOf(word);
+		}
+
+		else if(caller.equals("MainActivity"))
+		{
+			data=MainActivity.data.toArray(data);
+			i=MainActivity.data.indexOf(word);
+		}
+
+		l=data.length;
+		
 		Button b=(Button)findViewById(R.id.bview);
-		Button b1=(Button)findViewById(R.id.next1);
-		Button b2=(Button)findViewById(R.id.prev1);
+		ImageButton b1=(ImageButton)findViewById(R.id.next1);
+		ImageButton b2=(ImageButton)findViewById(R.id.prev1);
+		fav=(ImageButton)findViewById(R.id.fav);
+		
+		setMeaning(word);
+
 		b.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent i=new Intent("org.aakashlabs.gresyns.VIEWWORDLIST");
+				Intent i=new Intent(getApplicationContext(), ViewWordList.class);
 				//i.putExtra("word",word);
 				startActivity(i);
 			}
 		});
-b1.setOnClickListener(new View.OnClickListener() {
+		
+		fav.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.d("NEXT","NEXT");
-				if(id==max)
-					id=min;
-				else id=id+1;
+				if(isFav)
+				{
+					fav.setImageResource(R.drawable.ic_star);
+					isFav=false;
+				}
+				
+				else
+				{
+					fav.setImageResource(R.drawable.ic_star_marked);
+					isFav=true;
+				}
+
 				db.open();
-				word=db.getwd(String.valueOf(id));
-				setMeaning(word);
+				db.toggleFav(word,isFav);
 				db.close();
+			}
+		});
+
+b1.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+
+				i=(++i)%l;
+				word=data[i];
+				
+				setMeaning(word);
 			}
 		});
 b2.setOnClickListener(new View.OnClickListener() {
 	
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		Log.d("PREV","PREV");
-		if(id==min)
-			id=max;
-		else id=id-1;
-		db.open();
-		word=db.getwd(String.valueOf(id));
+
+		if(i==0)
+		{
+			i=l;
+		}
+		
+		i=(--i)%l;
+		word=data[i];
+
 		setMeaning(word);
-		db.close();
 	}
 });
 
@@ -88,6 +132,16 @@ public void setMeaning(String word)
 	final ListView listview = (ListView) findViewById(R.id.meanings);
 	DBManager db=new DBManager(this);
 	db.open();
+	isFav=db.isFav(word);
+	if(isFav)
+	{
+		fav.setImageResource(R.drawable.ic_star_marked);
+	}
+	
+	else
+	{
+		fav.setImageResource(R.drawable.ic_star);
+	}		
 	setTitle(word);
 	wordview.setText(word);
 	String gremeaning = db.getGREMeaning(word);

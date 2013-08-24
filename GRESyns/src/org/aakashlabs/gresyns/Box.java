@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class Box extends Activity {
-	List<String> data;
+	static List<String> data;
 	String count;
 	int min;
 	int max;
@@ -39,6 +39,7 @@ public class Box extends Activity {
     	 min=Integer.parseInt(count.split("@")[0]);
     	 max=Integer.parseInt(count.split("@")[1]);
     	data=db.read(box);
+    	System.out.println(data.get(0));
 		listview.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, data));
         listview.setFastScrollEnabled(true);
 		db.close();
@@ -57,10 +58,9 @@ public class Box extends Activity {
 			String item=parent.getItemAtPosition(position).toString();
 			try{
 				
-				Intent ourIntent=new Intent("org.aakashlabs.gresyns.DISPLAYACTIVITY");
+				Intent ourIntent=new Intent(getApplicationContext(), DisplayActivity.class);
 				ourIntent.putExtra("ID",item);
-				ourIntent.putExtra("minwid",min);
-				ourIntent.putExtra("maxwid",max);
+				ourIntent.putExtra("caller","Box");
 				startActivity(ourIntent);
 				
 			}

@@ -21,7 +21,8 @@
         android:layout_gravity="fill_horizontal"
         android:layout_weight="15"
         android:hint="@string/search"
-        android:paddingBottom="10sp" />
+        android:paddingBottom="10sp" >
+    </EditText>
 
     <ImageButton
         android:id="@+id/search_group_list"
