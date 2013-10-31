@@ -7,54 +7,34 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.IBinder;
 
-public class DBManager extends Service {
+public class DBManager extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
-    private DBInitializer2 db2;
     private final Context context;  
 
-    
-    
-    public DBManager(Context cont) {
-        this.context = cont;
-        db2 = new DBInitializer2(context);
+    private static final String DATABASE_NAME = "gredict";
+    private static final int DATABASE_VERSION = 1;
+
+    private static final String DATABASE_CREATE1 ="CREATE TABLE IF NOT EXISTS wordindex (wid INTEGER(4), word VARCHAR(256), gremeaning VARCHAR(1024), isFav TINYINT(1));";
+    private static final String DATABASE_CREATE2 ="CREATE TABLE IF NOT EXISTS lists (wid INTEGER(4), sid INTEGER(8), isDefault TINYINT(1));";
+    private static final String DATABASE_CREATE3 ="CREATE TABLE IF NOT EXISTS gloss (sid INTEGER(8), meaning VARCHAR(1024), pos INTEGER(1));";
+    private static final String DATABASE_CREATE4 ="CREATE  VIEW v1 AS SELECT sid, COUNT(sid) as count FROM lists GROUP BY sid;";
+    private static final String DATABASE_CREATE5 ="CREATE  VIEW v2 AS SELECT sid,meaning FROM gloss where sid IN (SELECT sid FROM v1 WHERE count>1);";
+
+  
+    public DBManager(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context=context;
     }
 	
-
-	@Override
-	public IBinder onBind(Intent intent) {
-		// TODO: Return the communication channel to the service.
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-	
-	private class DBInitializer2 extends SQLiteOpenHelper {
-		
-	    
-	    private static final String DATABASE_NAME = "gredict";
-	    private static final int DATABASE_VERSION = 1;
-
-	    private static final String DATABASE_CREATE1 ="CREATE TABLE IF NOT EXISTS wordindex (wid INTEGER(4), word VARCHAR(256), gremeaning VARCHAR(1024), isFav TINYINT(1));";
-	    private static final String DATABASE_CREATE2 ="CREATE TABLE IF NOT EXISTS lists (wid INTEGER(4), sid INTEGER(8), isDefault TINYINT(1));";
-	    private static final String DATABASE_CREATE3 ="CREATE TABLE IF NOT EXISTS gloss (sid INTEGER(8), meaning VARCHAR(1024), pos INTEGER(1));";
-	    private static final String DATABASE_CREATE4 ="CREATE  VIEW v1 AS SELECT sid, COUNT(sid) as count FROM lists GROUP BY sid;";
-	    private static final String DATABASE_CREATE5 ="CREATE  VIEW v2 AS SELECT sid,meaning FROM gloss where sid IN (SELECT sid FROM v1 WHERE count>1);";
-
-
-	    public DBInitializer2(Context context) {
-	        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	    }
-	    
 
 		@Override
 		public void onCreate(SQLiteDatabase db) 
@@ -173,17 +153,16 @@ public class DBManager extends Service {
 			onCreate(db);
 		}
 	   
-	}
 
     public Boolean open() throws SQLException 
     {
-        db = db2.getWritableDatabase();
+        db = this.getWritableDatabase();
         return true;
     }
 
     public void close() 
     {
-        db2.close();
+        db.close();
     }      
     
 
