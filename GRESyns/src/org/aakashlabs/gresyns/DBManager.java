@@ -41,7 +41,7 @@ public class DBManager extends Service {
 	private class DBInitializer2 extends SQLiteOpenHelper {
 		
 	    
-	    private static final String DATABASE_NAME = "wndict";
+	    private static final String DATABASE_NAME = "gredict";
 	    private static final int DATABASE_VERSION = 1;
 
 	    private static final String DATABASE_CREATE1 ="CREATE TABLE IF NOT EXISTS wordindex (wid INTEGER(4), word VARCHAR(256), gremeaning VARCHAR(1024), isFav TINYINT(1));";
